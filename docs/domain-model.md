@@ -285,3 +285,32 @@ erDiagram
    $$\text{valid\_from} \le \text{target\_time} \le \text{valid\_until (or } \infty \text{)}$$
    $$\text{and revoked\_at is null}$$
 4. **Kleene Conservatism**: If any mandatory requirement has an evaluation status of `UNKNOWN` and no requirement is `BLOCKED`, the overall status is strictly `UNKNOWN`. It can NEVER be `READY`.
+
+---
+
+## 6. Phase 1A Implementation Mapping (Pure Python Layer)
+
+The domain model is concretely implemented in the `backend.domain` package with zero framework or database dependencies:
+
+| Domain Concept | Concrete Python Class | Module Path | Immutability |
+| :--- | :--- | :--- | :--- |
+| **Readiness State** | [`ReadinessState`](file:///c:/PREQVIA/backend/domain/common/state.py) | `backend.domain.common.state` | Enum (Algebraic operators `&`, `\|`, `~`) |
+| **Requirement Code** | [`RequirementCode`](file:///c:/PREQVIA/backend/domain/common/types.py) | `backend.domain.common.types` | `_ValidatedCode(str)` |
+| **Evidence Code** | [`EvidenceCode`](file:///c:/PREQVIA/backend/domain/common/types.py) | `backend.domain.common.types` | `_ValidatedCode(str)` |
+| **Service Code** | [`ServiceCode`](file:///c:/PREQVIA/backend/domain/common/types.py) | `backend.domain.common.types` | `_ValidatedCode(str)` |
+| **Subject / User ID** | [`SubjectId`](file:///c:/PREQVIA/backend/domain/common/types.py) | `backend.domain.common.types` | `SubjectId(str)` |
+| **Requirement Specification** | [`RequirementSpecification`](file:///c:/PREQVIA/backend/domain/requirement/models.py) | `backend.domain.requirement.models` | `@dataclass(frozen=True)` |
+| **Validation Spec** | [`ValidationSpec`](file:///c:/PREQVIA/backend/domain/requirement/models.py) | `backend.domain.requirement.models` | `@dataclass(frozen=True)` |
+| **Evidence Record** | [`EvidenceRecord`](file:///c:/PREQVIA/backend/domain/evidence/models.py) | `backend.domain.evidence.models` | `@dataclass(frozen=True)` |
+| **Evidence Verification** | [`EvidenceVerificationRecord`](file:///c:/PREQVIA/backend/domain/evidence/models.py) | `backend.domain.evidence.models` | `@dataclass(frozen=True)` |
+| **Dependency Edge** | [`DependencyEdge`](file:///c:/PREQVIA/backend/domain/dependency/models.py) | `backend.domain.dependency.models` | `@dataclass(frozen=True)` |
+| **Service Catalog Item** | [`Service`](file:///c:/PREQVIA/backend/domain/service/models.py) | `backend.domain.service.models` | `@dataclass(frozen=True)` |
+| **Service Version** | [`ServiceVersion`](file:///c:/PREQVIA/backend/domain/service/models.py) | `backend.domain.service.models` | `@dataclass(frozen=True)` |
+| **Operating Schedule** | [`OperatingSchedule`](file:///c:/PREQVIA/backend/domain/service/models.py) | `backend.domain.service.models` | `@dataclass(frozen=True)` |
+| **Schedule Exception** | [`ScheduleException`](file:///c:/PREQVIA/backend/domain/service/models.py) | `backend.domain.service.models` | `@dataclass(frozen=True)` |
+| **User Task Intent** | [`UserTaskIntent`](file:///c:/PREQVIA/backend/domain/task/models.py) | `backend.domain.task.models` | `@dataclass(frozen=True)` |
+| **Actionable Remediation** | [`ActionableRemediation`](file:///c:/PREQVIA/backend/domain/remediation/models.py) | `backend.domain.remediation.models` | `@dataclass(frozen=True)` |
+| **Evaluation Node** | [`EvaluationNode`](file:///c:/PREQVIA/backend/domain/evaluation/models.py) | `backend.domain.evaluation.models` | `@dataclass(frozen=True)` |
+| **Evaluation** | [`Evaluation`](file:///c:/PREQVIA/backend/domain/evaluation/models.py) | `backend.domain.evaluation.models` | `@dataclass(frozen=True)` |
+
+
